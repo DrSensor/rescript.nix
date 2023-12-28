@@ -1,5 +1,6 @@
 final: prev: let
   inherit (final) lib stdenv fetchurl;
+  inherit (prev) pkgs;
 in {
   rescript = stdenv.mkDerivation rec {
     pname = "rescript";
@@ -9,7 +10,7 @@ in {
       hash = "sha256-HWP9H5YsLoIfuD9XdE9bkAjSrs+vNcPdSIG66/ShdN0=";
     };
     installPhase = ''
-      for bin in rescript bsc bsb_helper
+      for bin in rescript bsc bsb_helper ninja
       do install -D ${
         let
           maybeArm64 = lib.optionalString stdenv.isAarch64 "arm64";
@@ -21,7 +22,7 @@ in {
           else if stdenv.isCygwin || stdenv.isWindows
           then "win32"
           else throw "architecture not supported"
-      }/$bin.exe $out/bin/$bin
+      }/$bin.exe $out/bin/$bin.exe
       done
     '';
   };
