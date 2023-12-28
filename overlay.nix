@@ -1,6 +1,5 @@
 final: prev: let
   inherit (final) lib stdenv fetchurl;
-  inherit (prev) pkgs;
 in {
   rescript = stdenv.mkDerivation rec {
     pname = "rescript";
@@ -22,10 +21,9 @@ in {
         else throw "architecture not supported";
     in ''
       install -D ${dist}/rescript.exe $out/bin/rescript
-      for bin in bsc bsb_helper
+      for bin in bsc bsb_helper ninja
       do cp ${dist}/$bin.exe $out/bin/
       done
-      cp ${pkgs.ninja}/bin/ninja $out/bin/ninja.exe
     '';
   };
 }
