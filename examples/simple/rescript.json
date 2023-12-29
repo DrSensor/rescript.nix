@@ -1,0 +1,12 @@
+{
+  "name": "simple",
+  "sources": ["src"],
+  "bs-dependencies": [],
+  "bs-dev-dependencies": [],
+  "package-specs": {
+    "module": "es6",
+    "in-source": true
+  },
+  "suffix": ".res.js",
+  "uncurried": true
+}
