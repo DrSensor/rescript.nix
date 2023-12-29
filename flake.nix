@@ -21,7 +21,7 @@
       perSystem = part @ {pkgs, ...}: {
         devshells.default = {
           motd = "";
-          packages = with pkgs; [rescript];
+          packages = with pkgs; [rescript rescript-analysis];
         };
         _module.args.pkgs = import inputs.nixpkgs {
           inherit (part) system;
