@@ -1,5 +1,6 @@
 final: prev: let
   inherit (final) lib stdenv fetchurl;
+  inherit (prev) pkgs;
 in {
   rescript = stdenv.mkDerivation rec {
     pname = "rescript";
@@ -24,6 +25,7 @@ in {
       for bin in bsc bsb_helper
       do cp ${dist}/$bin.exe $out/bin/
       done
+      cp ${pkgs.ninja}/bin/ninja $out/bin/ninja.exe
     '';
   };
 }
