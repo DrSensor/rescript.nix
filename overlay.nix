@@ -24,6 +24,7 @@ in {
       for bin in bsc bsb_helper ninja
       do cp ${dist}/$bin.exe $out/bin/
       done
+      cp -r lib/ $out/lib/
     '';
   };
 }
