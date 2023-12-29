@@ -1,13 +1,13 @@
 rescript = 1
 rule astj
-  command = /nix/store/6w0axhngmr6sp2bdh0d6m68i0r52v873-rescript-11.0.0-rc.8/bin/bsc.exe  -bs-v 11.0.0-rc.8 -uncurried  -absname -bs-ast -o $out $i
+  command = /nix/store/a5frj0vpj9d70kq8xb3k2n965chw2yk5-rescript-11.0.0-rc.8/bin/bsc.exe  -bs-v 11.0.0-rc.8 -uncurried  -absname -bs-ast -o $out $i
 o src/Main.ast : astj ../../src/Main.res
 rule deps
-  command = /nix/store/6w0axhngmr6sp2bdh0d6m68i0r52v873-rescript-11.0.0-rc.8/bin/bsb_helper.exe -hash 6fffe76f970de4b8252db557d5143248 $in
+  command = /nix/store/a5frj0vpj9d70kq8xb3k2n965chw2yk5-rescript-11.0.0-rc.8/bin/bsb_helper.exe -hash 6fffe76f970de4b8252db557d5143248 $in
   restat = 1
 o src/Main.d : deps src/Main.ast
 rule mij
-  command = /nix/store/6w0axhngmr6sp2bdh0d6m68i0r52v873-rescript-11.0.0-rc.8/bin/bsc.exe -I src   -uncurried -bs-package-name my-project -bs-package-output es6:$in_d:.res.js $i
+  command = /nix/store/a5frj0vpj9d70kq8xb3k2n965chw2yk5-rescript-11.0.0-rc.8/bin/bsc.exe -I src   -uncurried -bs-package-name my-project -bs-package-output es6:$in_d:.res.js $i
   dyndep = 1
   restat = 1
 o src/Main.cmj src/Main.cmi ../../src/Main.res.js : mij src/Main.ast
