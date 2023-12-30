@@ -1,8 +1,6 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
-    systems.url = "path:./systems.nix";
-    systems.flake = false;
 
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
@@ -11,22 +9,31 @@
     devshell = {
       url = "github:numtide/devshell";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.systems.follows = "systems";
     };
   };
   outputs = inputs:
-    inputs.flake-parts.lib.mkFlake {inherit inputs;} {
-      systems = import inputs.systems;
-      imports = [inputs.devshell.flakeModule];
-      perSystem = part @ {pkgs, ...}: {
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [
+        "aarch64-darwin"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "x86_64-linux"
+        "i686-cygwin"
+        "x86_64-cygwin"
+        "x86_64-windows"
+        "i686-windows"
+      ];
+      imports = [ inputs.devshell.flakeModule ];
+      perSystem = part @ { pkgs, ... }: {
         devshells.default = {
           motd = "";
-          packages = with pkgs; [rescript rescript-analysis];
+          packages = with pkgs; [ rescript rescript-analysis ];
         };
+        packages = with pkgs; { inherit rescript rescript-analysis; };
         _module.args.pkgs = import inputs.nixpkgs {
           inherit (part) system;
-          overlays = [(import ./overlay.nix)];
-          config = {};
+          overlays = [ (import ./overlay.nix) ];
+          config = { };
         };
       };
     };
