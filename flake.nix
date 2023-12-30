@@ -23,6 +23,7 @@
           motd = "";
           packages = with pkgs; [rescript rescript-analysis];
         };
+        packages = with pkgs; {inherit rescript rescript-analysis;};
         _module.args.pkgs = import inputs.nixpkgs {
           inherit (part) system;
           overlays = [(import ./overlay.nix)];
