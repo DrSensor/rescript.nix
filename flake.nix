@@ -1,7 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
-    systems.url = "path:./systems.nix";
+    systems.url = "github:nix-systems/default";
     systems.flake = false;
 
     flake-parts = {
